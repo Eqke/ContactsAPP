@@ -1,2 +1,2 @@
 # ContactsApp
-app realized for uni-course
+app is realized for university course
