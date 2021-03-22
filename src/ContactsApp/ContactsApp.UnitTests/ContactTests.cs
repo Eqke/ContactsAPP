@@ -12,7 +12,7 @@ namespace ContactsApp.UnitTests
     public class ContactTests
     {
         [TestCase(TestName = "Positive surname get test")]
-        public void SurnameGetTest()
+        public void Contact_SurnameGet_PositiveTest()
         {
             // Setup
             var expected = "Смирнов";
@@ -31,7 +31,7 @@ namespace ContactsApp.UnitTests
         [TestCase("Козлюк-Козлюк-Козлюк-Козлюк-Козлюк-Козлюк-Козлюк-++",
             "must throw exception, if surname have more then 50 symbols",
             TestName = "Set surname more then 50 symbols test")]
-        public void SurnameSetTest_Negative(string incorrectedSurname, string message)
+        public void Contact_SurnameSet_NegativeTest(string incorrectedSurname, string message)
         {
             Assert.Throws<ArgumentException>(() =>
             {
@@ -41,7 +41,7 @@ namespace ContactsApp.UnitTests
         }
 
         [TestCase(TestName = "Positive name get test")]
-        public void NameGetTest()
+        public void Contact_NameGet_PositiveTest()
         {
             // Setup
             var expected = "Василий";
@@ -60,7 +60,7 @@ namespace ContactsApp.UnitTests
         [TestCase("ВасилийВасилийВасилийВасилийВасилийВасилийВасилий++",
             "must throw exception, if name have more then 50 symbols",
             TestName = "Set name more then 50 symbols test")]
-        public void NameSetTest(string incorrectedName, string message)
+        public void Contact_NameSet_NegativeTest(string incorrectedName, string message)
         {
             Assert.Throws<ArgumentException>(() =>
             {
@@ -70,7 +70,7 @@ namespace ContactsApp.UnitTests
         }
 
         [TestCase(TestName = "Positive birthday get test")]
-        public void BirthdayGetTest()
+        public void Contact_BirthdayGet_PositiveTest()
         {
             // Setup
             var expected = new DateTime(2000, 2, 25);
@@ -84,33 +84,11 @@ namespace ContactsApp.UnitTests
             Assert.AreEqual(expected, actual, "get returned incorrected data");
         }
 
-        //[TestCase(Description = "Negative birthday set test", TestName = "Birthday year set less then 1900")]
-        //public void BirthdaySetTest_YearLessThen1900()
-        //{
-        //    Assert.Throws<ArgumentException>(() =>
-        //    {
-        //        var contact = new Contact("Слепцов", "Евдоким", new DateTime(1700, 10, 2),
-        //            "rek@mail.ru", new PhoneNumber("79245271235"), "rek");
-        //    }, "must throw exception, if birthday year less then 1900");
-        //}
-
-        //[TestCase(Description = "Negative birthday set test", TestName = "Birthday later then today")]
-        //public void BirthdaySetTest_DateLaterThenToday()
-        //{
-        //    var birthday = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day + 1);
-
-        //    Assert.Throws<ArgumentException>(() =>
-        //    {
-        //        var contact = new Contact("Слепцов", "Петр", birthday,
-        //            "rek@mail.ru", new PhoneNumber("79245271235"), "rek");
-        //    }, "must throw exception, if birthday is today or later");
-        //}
-
         [TestCase(1700, 10, 2, "must throw exception, if birthday year less then 1900", 
             Description = "Negative birthday set test", TestName = "Birthday year set less then 1900")]
         [TestCase(3000, 10, 2,  "must throw exception, if birthday is today or later", 
             Description = "Negative birthday set test", TestName = "Birthday later then today")]
-        public void BirthdaySetTest(int year, int month, int day, string message)
+        public void Contact_BirthdaySet_NegativeTest(int year, int month, int day, string message)
         {
             
             //Assert
@@ -122,7 +100,7 @@ namespace ContactsApp.UnitTests
         }
 
         [TestCase(TestName = "Positive phone get test")]
-        public void PhoneNumberGetTest()
+        public void Contact_PhoneNumberGet_PositiveTest()
         {
             // Setup
             var expected = new PhoneNumber("79234364565");
@@ -166,7 +144,7 @@ namespace ContactsApp.UnitTests
         }
 
         [TestCase(TestName = "Positive vkid get test")]
-        public void VKIDGetTest()
+        public void Contact_VKIDGet_PositiveTest()
         {
             // Setup
             var expected = "id21343204";
@@ -181,7 +159,7 @@ namespace ContactsApp.UnitTests
 
         [TestCase("id1234567890jup1", "must throw exception, if vkid have more then 15 symbols",
             Description = "Negative email set test", TestName = "VkID can't be more then 15 symbols")]
-        public void VKIDSetTest(string incorrectedVKID, string message)
+        public void Contact_VKIDSet_NegativeTest(string incorrectedVKID, string message)
         {
             Assert.Throws<ArgumentException>(() =>
             {
@@ -190,26 +168,10 @@ namespace ContactsApp.UnitTests
             }, message);
         }
 
-        //[TestCase(null, null, null, null, "70000000000", null, 
-        //    "construct work is incorrected", TestName = "Positive construct test")]
-        //public void ContactConstructTest_Positive(string surname, string name, string birthday, string email, 
-        //    string number, string vkid, string message)
-        //{
-        //    // Setup
-        //    var expected = new Contact(surname, name, Convert.ToDateTime(birthday), email, new PhoneNumber(number),
-        //        vkid);
-
-        //    // Actual 
-        //    var actual = new Contact();
-
-        //    // Assert
-        //    Assert.AreEqual(expected,actual, message);
-        //}
-
         [TestCase("Козлюк", "Василий", "25.02.2000", "reklama@ya.ru",
             "79234364565", "id324215", "contctruct work is corrected",
             TestName = "Negative construct test")]
-        public void ContactConstructTest_Negative(string surname, string name, string birthday, string email,
+        public void Contact_Constructor_NegativeTest(string surname, string name, string birthday, string email,
             string number, string vkid, string message)
         {
             // Setup

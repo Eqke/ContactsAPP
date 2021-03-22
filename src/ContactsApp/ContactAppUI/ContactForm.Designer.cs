@@ -30,17 +30,17 @@ namespace ContactAppUI
         private void InitializeComponent()
         {
             this.EditorTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.VkIDLabel = new System.Windows.Forms.Label();
             this.VkIDTextBox = new System.Windows.Forms.TextBox();
+            this.SurnameLabel = new System.Windows.Forms.Label();
             this.EmailTextBox = new System.Windows.Forms.TextBox();
             this.PhoneMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.NameTextBox = new System.Windows.Forms.TextBox();
             this.SurnameTextBox = new System.Windows.Forms.TextBox();
-            this.SurnameLabel = new System.Windows.Forms.Label();
             this.NameLabel = new System.Windows.Forms.Label();
             this.BirthdayLabel = new System.Windows.Forms.Label();
             this.PhoneLabel = new System.Windows.Forms.Label();
             this.EmailLabel = new System.Windows.Forms.Label();
-            this.VkIDLabel = new System.Windows.Forms.Label();
             this.BirthdayPanel = new System.Windows.Forms.Panel();
             this.BirthdayErrorLabel = new System.Windows.Forms.Label();
             this.BirthdayTimePicker = new System.Windows.Forms.DateTimePicker();
@@ -58,19 +58,19 @@ namespace ContactAppUI
             this.EditorTableLayoutPanel.ColumnCount = 2;
             this.EditorTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.EditorTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.EditorTableLayoutPanel.Controls.Add(this.VkIDLabel, 0, 5);
             this.EditorTableLayoutPanel.Controls.Add(this.VkIDTextBox, 1, 5);
             this.EditorTableLayoutPanel.Controls.Add(this.EmailTextBox, 1, 4);
             this.EditorTableLayoutPanel.Controls.Add(this.PhoneMaskedTextBox, 1, 3);
             this.EditorTableLayoutPanel.Controls.Add(this.NameTextBox, 1, 1);
             this.EditorTableLayoutPanel.Controls.Add(this.SurnameTextBox, 1, 0);
-            this.EditorTableLayoutPanel.Controls.Add(this.SurnameLabel, 0, 0);
             this.EditorTableLayoutPanel.Controls.Add(this.NameLabel, 0, 1);
             this.EditorTableLayoutPanel.Controls.Add(this.BirthdayLabel, 0, 2);
             this.EditorTableLayoutPanel.Controls.Add(this.PhoneLabel, 0, 3);
             this.EditorTableLayoutPanel.Controls.Add(this.EmailLabel, 0, 4);
-            this.EditorTableLayoutPanel.Controls.Add(this.VkIDLabel, 0, 5);
             this.EditorTableLayoutPanel.Controls.Add(this.BirthdayPanel, 1, 2);
-            this.EditorTableLayoutPanel.Location = new System.Drawing.Point(26, 12);
+            this.EditorTableLayoutPanel.Controls.Add(this.SurnameLabel, 0, 0);
+            this.EditorTableLayoutPanel.Location = new System.Drawing.Point(12, 12);
             this.EditorTableLayoutPanel.Name = "EditorTableLayoutPanel";
             this.EditorTableLayoutPanel.RowCount = 6;
             this.EditorTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
@@ -79,8 +79,18 @@ namespace ContactAppUI
             this.EditorTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.EditorTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.EditorTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.EditorTableLayoutPanel.Size = new System.Drawing.Size(534, 206);
+            this.EditorTableLayoutPanel.Size = new System.Drawing.Size(560, 206);
             this.EditorTableLayoutPanel.TabIndex = 0;
+            // 
+            // VkIDLabel
+            // 
+            this.VkIDLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.VkIDLabel.AutoSize = true;
+            this.VkIDLabel.Location = new System.Drawing.Point(3, 181);
+            this.VkIDLabel.Name = "VkIDLabel";
+            this.VkIDLabel.Size = new System.Drawing.Size(54, 13);
+            this.VkIDLabel.TabIndex = 5;
+            this.VkIDLabel.Text = "vk.com:";
             // 
             // VkIDTextBox
             // 
@@ -88,52 +98,8 @@ namespace ContactAppUI
             this.VkIDTextBox.Location = new System.Drawing.Point(63, 178);
             this.VkIDTextBox.MaxLength = 15;
             this.VkIDTextBox.Name = "VkIDTextBox";
-            this.VkIDTextBox.Size = new System.Drawing.Size(468, 20);
+            this.VkIDTextBox.Size = new System.Drawing.Size(494, 20);
             this.VkIDTextBox.TabIndex = 14;
-            this.VkIDTextBox.UseWaitCursor = true;
-            // 
-            // EmailTextBox
-            // 
-            this.EmailTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.EmailTextBox.Location = new System.Drawing.Point(63, 143);
-            this.EmailTextBox.MaxLength = 50;
-            this.EmailTextBox.Name = "EmailTextBox";
-            this.EmailTextBox.Size = new System.Drawing.Size(468, 20);
-            this.EmailTextBox.TabIndex = 13;
-            this.EmailTextBox.UseWaitCursor = true;
-            this.EmailTextBox.TextChanged += new System.EventHandler(this.emailTextBox_TextChanged);
-            // 
-            // PhoneMaskedTextBox
-            // 
-            this.PhoneMaskedTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.PhoneMaskedTextBox.BeepOnError = true;
-            this.PhoneMaskedTextBox.Location = new System.Drawing.Point(63, 109);
-            this.PhoneMaskedTextBox.Mask = "+7(000) 000-0000";
-            this.PhoneMaskedTextBox.Name = "PhoneMaskedTextBox";
-            this.PhoneMaskedTextBox.Size = new System.Drawing.Size(468, 20);
-            this.PhoneMaskedTextBox.TabIndex = 12;
-            // 
-            // NameTextBox
-            // 
-            this.NameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.NameTextBox.Location = new System.Drawing.Point(63, 41);
-            this.NameTextBox.MaxLength = 50;
-            this.NameTextBox.Name = "NameTextBox";
-            this.NameTextBox.Size = new System.Drawing.Size(468, 20);
-            this.NameTextBox.TabIndex = 8;
-            this.NameTextBox.UseWaitCursor = true;
-            this.NameTextBox.TextChanged += new System.EventHandler(this.nameTextBox_TextChanged);
-            // 
-            // SurnameTextBox
-            // 
-            this.SurnameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.SurnameTextBox.Location = new System.Drawing.Point(63, 7);
-            this.SurnameTextBox.MaxLength = 50;
-            this.SurnameTextBox.Name = "SurnameTextBox";
-            this.SurnameTextBox.Size = new System.Drawing.Size(468, 20);
-            this.SurnameTextBox.TabIndex = 7;
-            this.SurnameTextBox.UseWaitCursor = true;
-            this.SurnameTextBox.TextChanged += new System.EventHandler(this.surnameTextBox_TextChanged);
             // 
             // SurnameLabel
             // 
@@ -144,7 +110,46 @@ namespace ContactAppUI
             this.SurnameLabel.Size = new System.Drawing.Size(54, 13);
             this.SurnameLabel.TabIndex = 0;
             this.SurnameLabel.Text = "Surname:";
-            this.SurnameLabel.UseWaitCursor = true;
+            // 
+            // EmailTextBox
+            // 
+            this.EmailTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.EmailTextBox.Location = new System.Drawing.Point(63, 143);
+            this.EmailTextBox.MaxLength = 50;
+            this.EmailTextBox.Name = "EmailTextBox";
+            this.EmailTextBox.Size = new System.Drawing.Size(494, 20);
+            this.EmailTextBox.TabIndex = 13;
+            this.EmailTextBox.TextChanged += new System.EventHandler(this.emailTextBox_TextChanged);
+            // 
+            // PhoneMaskedTextBox
+            // 
+            this.PhoneMaskedTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.PhoneMaskedTextBox.BeepOnError = true;
+            this.PhoneMaskedTextBox.Location = new System.Drawing.Point(63, 109);
+            this.PhoneMaskedTextBox.Mask = "+7(000) 000-0000";
+            this.PhoneMaskedTextBox.Name = "PhoneMaskedTextBox";
+            this.PhoneMaskedTextBox.Size = new System.Drawing.Size(494, 20);
+            this.PhoneMaskedTextBox.TabIndex = 12;
+            // 
+            // NameTextBox
+            // 
+            this.NameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.NameTextBox.Location = new System.Drawing.Point(63, 41);
+            this.NameTextBox.MaxLength = 50;
+            this.NameTextBox.Name = "NameTextBox";
+            this.NameTextBox.Size = new System.Drawing.Size(494, 20);
+            this.NameTextBox.TabIndex = 8;
+            this.NameTextBox.TextChanged += new System.EventHandler(this.nameTextBox_TextChanged);
+            // 
+            // SurnameTextBox
+            // 
+            this.SurnameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.SurnameTextBox.Location = new System.Drawing.Point(63, 7);
+            this.SurnameTextBox.MaxLength = 50;
+            this.SurnameTextBox.Name = "SurnameTextBox";
+            this.SurnameTextBox.Size = new System.Drawing.Size(494, 20);
+            this.SurnameTextBox.TabIndex = 7;
+            this.SurnameTextBox.TextChanged += new System.EventHandler(this.surnameTextBox_TextChanged);
             // 
             // NameLabel
             // 
@@ -155,7 +160,6 @@ namespace ContactAppUI
             this.NameLabel.Size = new System.Drawing.Size(54, 13);
             this.NameLabel.TabIndex = 1;
             this.NameLabel.Text = "Name:";
-            this.NameLabel.UseWaitCursor = true;
             // 
             // BirthdayLabel
             // 
@@ -166,7 +170,6 @@ namespace ContactAppUI
             this.BirthdayLabel.Size = new System.Drawing.Size(54, 13);
             this.BirthdayLabel.TabIndex = 2;
             this.BirthdayLabel.Text = "Birthday:";
-            this.BirthdayLabel.UseWaitCursor = true;
             // 
             // PhoneLabel
             // 
@@ -177,7 +180,6 @@ namespace ContactAppUI
             this.PhoneLabel.Size = new System.Drawing.Size(54, 13);
             this.PhoneLabel.TabIndex = 3;
             this.PhoneLabel.Text = "Phone:";
-            this.PhoneLabel.UseWaitCursor = true;
             // 
             // EmailLabel
             // 
@@ -188,18 +190,6 @@ namespace ContactAppUI
             this.EmailLabel.Size = new System.Drawing.Size(54, 13);
             this.EmailLabel.TabIndex = 4;
             this.EmailLabel.Text = "Email:";
-            this.EmailLabel.UseWaitCursor = true;
-            // 
-            // VkIDLabel
-            // 
-            this.VkIDLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.VkIDLabel.AutoSize = true;
-            this.VkIDLabel.Location = new System.Drawing.Point(3, 181);
-            this.VkIDLabel.Name = "VkIDLabel";
-            this.VkIDLabel.Size = new System.Drawing.Size(54, 13);
-            this.VkIDLabel.TabIndex = 5;
-            this.VkIDLabel.Text = "vk.com/";
-            this.VkIDLabel.UseWaitCursor = true;
             // 
             // BirthdayPanel
             // 
@@ -207,15 +197,14 @@ namespace ContactAppUI
             this.BirthdayPanel.Controls.Add(this.BirthdayTimePicker);
             this.BirthdayPanel.Location = new System.Drawing.Point(63, 71);
             this.BirthdayPanel.Name = "BirthdayPanel";
-            this.BirthdayPanel.Size = new System.Drawing.Size(468, 28);
+            this.BirthdayPanel.Size = new System.Drawing.Size(494, 28);
             this.BirthdayPanel.TabIndex = 15;
-            this.BirthdayPanel.UseWaitCursor = true;
             // 
             // BirthdayErrorLabel
             // 
             this.BirthdayErrorLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.BirthdayErrorLabel.AutoSize = true;
-            this.BirthdayErrorLabel.Location = new System.Drawing.Point(166, 7);
+            this.BirthdayErrorLabel.Location = new System.Drawing.Point(192, 7);
             this.BirthdayErrorLabel.Name = "BirthdayErrorLabel";
             this.BirthdayErrorLabel.Size = new System.Drawing.Size(0, 13);
             this.BirthdayErrorLabel.TabIndex = 12;
@@ -228,48 +217,46 @@ namespace ContactAppUI
             this.BirthdayTimePicker.Name = "BirthdayTimePicker";
             this.BirthdayTimePicker.Size = new System.Drawing.Size(153, 20);
             this.BirthdayTimePicker.TabIndex = 11;
-            this.BirthdayTimePicker.UseWaitCursor = true;
             this.BirthdayTimePicker.ValueChanged += new System.EventHandler(this.birthdayTimePicker_ValueChanged);
             // 
             // CancelEditorFormButton
             // 
-            this.CancelEditorFormButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.CancelEditorFormButton.Location = new System.Drawing.Point(84, 4);
+            this.CancelEditorFormButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.CancelEditorFormButton.Cursor = System.Windows.Forms.Cursors.Default;
+            this.CancelEditorFormButton.Location = new System.Drawing.Point(89, 4);
             this.CancelEditorFormButton.Name = "CancelEditorFormButton";
-            this.CancelEditorFormButton.Size = new System.Drawing.Size(72, 23);
+            this.CancelEditorFormButton.Size = new System.Drawing.Size(75, 23);
             this.CancelEditorFormButton.TabIndex = 0;
             this.CancelEditorFormButton.Text = "Cancel";
             this.CancelEditorFormButton.UseVisualStyleBackColor = true;
-            this.CancelEditorFormButton.UseWaitCursor = true;
             this.CancelEditorFormButton.Click += new System.EventHandler(this.cancelEditorFormButton_Click);
             // 
             // OkEditorFormButton
             // 
-            this.OkEditorFormButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.OkEditorFormButton.Location = new System.Drawing.Point(3, 4);
+            this.OkEditorFormButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.OkEditorFormButton.Cursor = System.Windows.Forms.Cursors.Default;
+            this.OkEditorFormButton.Location = new System.Drawing.Point(4, 4);
             this.OkEditorFormButton.Name = "OkEditorFormButton";
             this.OkEditorFormButton.Size = new System.Drawing.Size(75, 23);
             this.OkEditorFormButton.TabIndex = 1;
             this.OkEditorFormButton.Text = "OK";
             this.OkEditorFormButton.UseVisualStyleBackColor = true;
-            this.OkEditorFormButton.UseWaitCursor = true;
             this.OkEditorFormButton.Click += new System.EventHandler(this.okEditorFormButton_Click);
             // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.36612F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.63388F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.OkEditorFormButton, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.CancelEditorFormButton, 1, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(401, 224);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(403, 224);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(159, 32);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(169, 32);
             this.tableLayoutPanel2.TabIndex = 2;
-            this.tableLayoutPanel2.UseWaitCursor = true;
             // 
             // ContactForm
             // 
@@ -278,12 +265,12 @@ namespace ContactAppUI
             this.ClientSize = new System.Drawing.Size(584, 261);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.EditorTableLayoutPanel);
+            this.MaximumSize = new System.Drawing.Size(600, 300);
             this.MinimumSize = new System.Drawing.Size(600, 300);
             this.Name = "ContactForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "Contact";
-            this.Load += new System.EventHandler(this.EditorForm_Load);
             this.EditorTableLayoutPanel.ResumeLayout(false);
             this.EditorTableLayoutPanel.PerformLayout();
             this.BirthdayPanel.ResumeLayout(false);

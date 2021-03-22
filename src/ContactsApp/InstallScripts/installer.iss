@@ -10,12 +10,12 @@ AppPublisherURL = {#MyAppURL}
 AppSupportURL = {#MyAppURL}
 AppUpdatesURL = {#MyAppURL}
 DefaultDirName = {pf}\{#MyAppName}
-SetupIconFile = "C:\Users\Krazy\source\repos\ContactsApp\icon\MainFormIcon.ico"
+SetupIconFile = "..\..\..\icon\MainFormIcon.ico"
 DisableProgramGroupPage = yes
 OutputBaseFilename = ContactAppSetup
 Compression = lzma
 SolidCompression = yes
-OutputDir = "C:\Users\Krazy\source\repos\ContactsApp\src\ContactApp\InstallScripts\Installers"
+OutputDir = "Installers"
 
 [languages]
 Name: "en"; MessagesFile: "compiler:Default.isl"
@@ -24,6 +24,6 @@ Name: "en"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\Krazy\source\repos\ContactsApp\src\ContactApp\InstallScripts\Release\ContactsApp.dll"; DestDir: "{app}"
-Source: "C:\Users\Krazy\source\repos\ContactsApp\src\ContactApp\InstallScripts\Release\Newtonsoft.Json.dll"; DestDir: "{app}"
-Source: "C:\Users\Krazy\source\repos\ContactsApp\src\ContactApp\InstallScripts\Release\ContactAppUI.exe"; DestDir: "{app}"
+Source: "Release\ContactsApp.dll"; DestDir: "{app}"
+Source: "Release\Newtonsoft.Json.dll"; DestDir: "{app}"
+Source: "Release\ContactAppUI.exe"; DestDir: "{app}"

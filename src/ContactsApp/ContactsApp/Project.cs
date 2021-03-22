@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ContactsApp
@@ -33,18 +34,41 @@ namespace ContactsApp
         /// Метод, формирующий список именинников
         /// </summary>
         /// <returns>Список именинников</returns>
-        public List<Contact> TodayBirthdayList(DateTime today)
+        public List<string> TodayBirthdayList(DateTime today)
         {
-            List<Contact> birthdayContactsList = new List<Contact>();
+            var birthdayContactsList = new List<string>();
             foreach (var contact in Contacts)
             {
                 if (contact.BirthDay.Day == today.Day 
                     && contact.BirthDay.Month == today.Month)
                 {
-                    birthdayContactsList.Add(contact);
+                    birthdayContactsList.Add(contact.Surname);
                 }
             }
             return birthdayContactsList;
+        }
+
+        public List<KeyValuePair<int, Contact>> FindContacts(string searchingSurname)
+        {
+            var findedContactsList = new List<KeyValuePair<int, Contact>>();
+            if (searchingSurname == "")
+            {
+                for (int i = 0; i < Contacts.Count; i++)
+                {
+                    findedContactsList.Add(new KeyValuePair <int, Contact> (i, Contacts[i]));
+                }
+            }
+            else
+            {
+                for (int i = 0; i < Contacts.Count; i++)
+                {
+                    if (Regex.IsMatch(Contacts[i].Surname.ToLower(), searchingSurname.ToLower()))
+                    {
+                        findedContactsList.Add(new KeyValuePair<int, Contact>(i, Contacts[i]));
+                    }
+                }
+            }
+            return findedContactsList;
         }
     }
 }

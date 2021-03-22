@@ -16,7 +16,7 @@ namespace ContactsApp
     /// Класс контакта, хранящий информацию о имени, фамилии, дате рождения
     /// и электронной почте.
     /// </summary>
-    public class Contact : ICloneable, IComparable<Contact>
+    public class Contact : ICloneable, IComparable<Contact>, IEquatable<Contact>
     {
 
         /// <summary>
@@ -55,12 +55,12 @@ namespace ContactsApp
         public string VkID
         {
             get { return _vkid; }
-            private set
+            set
             {
                 if (value.Length > 15)
                 {
                     throw new ArgumentException("Error: Incorrected VkID. " +
-                                                "VkID must be have less then 16 symbols.");
+                                                "VkID must be hav Coe less then 16 symbols.");
                 }
 
                 _vkid = value;
@@ -72,18 +72,23 @@ namespace ContactsApp
         /// </summary>
         public string Surname
         {
-            get { return _surname; }
-            private set
+            get => _surname;
+            set
             {
                 if (value.Length > 50)
                 {
                     throw new ArgumentException("Error: incorrected surname. " +
-                                                "Surname length must be have less then 51 symbols");
+                                                "Surname length must be have less then 51 symbols.");
                 }
                 else if (value == string.Empty)
                 {
                     throw new ArgumentException("Error: incorrected surname. " +
-                                                "Surname can't be empty string");
+                                                "Surname can't be empty string.");
+                }
+                else if (Regex.IsMatch(value, "[^a-zA-Zа-яА-Я]"))
+                {
+                    throw new ArgumentException("Error: incorrected surname. " +
+                                                "Surname have incorrected symbols.");
                 }
                 value = value.Substring(0, 1).ToUpper() + value.Substring(1).ToLower();
                 _surname = value;
@@ -95,8 +100,8 @@ namespace ContactsApp
         /// </summary>
         public string Name
         {
-            get { return _name; }
-            private set
+            get => _name;
+            set
             {
                 if (value.Length > 50)
                 {
@@ -108,6 +113,11 @@ namespace ContactsApp
                     throw new ArgumentException("Error: incorrected name. " +
                                                 "Name can't be empty string");
                 }
+                else if (Regex.IsMatch(value, "[^a-zA-Zа-яА-Я]"))
+                {
+                    throw new ArgumentException("Error: incorrected surname. " +
+                                                "Surname have incorrected symbols.");
+                }
                 value = value.Substring(0, 1).ToUpper() + value.Substring(1).ToLower();
                 _name = value;
             }
@@ -118,19 +128,18 @@ namespace ContactsApp
         /// </summary>
         public DateTime BirthDay
         {
-            get { return _birthDay; }
-            private set 
+            get => _birthDay;
+            set 
             {
-
                 if (value.Year < 1900)
                 {
                     throw new ArgumentException("Error: incorrected year. " +
                                                 "Please, choose year more then 1900.");
                 }
-                else if (value >= DateTime.Today) // or now
+                else if (value > DateTime.Now)
                 {
                     throw new ArgumentException("Error: incorrected year. " +
-                                                "Birthday can't be equal current day.");
+                                                "Birthday can't be later then today.");
                 }
                 _birthDay = value;
                 }
@@ -141,8 +150,8 @@ namespace ContactsApp
         /// </summary>
         public string Email
         {
-            get { return _email; }
-            private set
+            get => _email;
+            set
             {
                 if (value.Length > 50)
                 {
@@ -164,7 +173,7 @@ namespace ContactsApp
         public PhoneNumber PhoneNumber
         {
             get { return _phoneNumber; }
-            private set { _phoneNumber = value; }
+            set { _phoneNumber = value; }
         }
 
         /// <summary>
@@ -222,5 +231,39 @@ namespace ContactsApp
             return _surname.CompareTo(other._surname);
         }
 
+
+        public bool Equals(Contact other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return _surname == other._surname 
+                   && _name == other._name 
+                   && _birthDay.Equals(other._birthDay) 
+                   && _email == other._email 
+                   && Equals(_phoneNumber, other._phoneNumber) 
+                   && _vkid == other._vkid;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Contact) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (_surname != null ? _surname.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (_name != null ? _name.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ _birthDay.GetHashCode();
+                hashCode = (hashCode * 397) ^ (_email != null ? _email.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (_phoneNumber != null ? _phoneNumber.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (_vkid != null ? _vkid.GetHashCode() : 0);
+                return hashCode;
+            }
+        }
     }
 }

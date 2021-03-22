@@ -1,38 +1,77 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using NUnit.Framework;
+using ContactsApp;
 
 namespace ContactsApp.UnitTests
 {
     [TestFixture]
     public class ProjectManagerTests
     {
-        [TestCase(Description = "Positive project manager get test", TestName = "Project manager get test")]
-        public void ProjectManagerGetTest()
+        
+        [TestCase(Description = "Positive project manager load test", TestName = "Project manager load test")]
+        public void ProjectManager_LoadCorrectData_FileLoadCorrected()
         {
             // Setup
-            var expected = new Contact("Сидоров", "Иван", new DateTime(1998, 3, 15), "sid.i@ya.ru",
-                new PhoneNumber("79996542354"), "sid0rov");
-            Project project = new Project();
-            project.Contacts.Add(expected);
-            ProjectManager.SaveToFile(project, "C:/TestContact.txt");
-            project = null;
-            project = ProjectManager.LoadFromFile("C:/TestContact.txt");
+            var expectedProject = new Project();
+            var contact = new Contact("Козлюк", "Василий", new DateTime(2000, 2, 25),
+                "eqkez0r@mail.ru", new PhoneNumber("79234364565"), "eqkez0r");
+            expectedProject.Contacts.Add(contact);
+            contact = new Contact("Семенов", "Алексей", new DateTime(2000, 3, 20),
+                "sem@mail.ru", new PhoneNumber("79534364565"), "sem");
+            expectedProject.Contacts.Add(contact);
 
             // Act
-            var actual = project.Contacts[0];
+            var actualProject = ProjectManager.LoadFromFile("TestData\\", "CorrectedProjectFile.json");
+            
+            // Assert
+            Assert.AreEqual(expectedProject.Contacts.Count, actualProject.Contacts.Count);
+            for (int i = 0; i < expectedProject.Contacts.Count; i++)
+            {
+                Assert.AreEqual(expectedProject.Contacts[i], actualProject.Contacts[i]);
+            }
+        }
+
+        [TestCase(Description = "", TestName = "Load incorrected file")]
+        public void ProjectManager_LoadBrokenData_FileLoadIncorrected()
+        {
+            // Setup
+            var expectedProject = new Project();
+            var contact = new Contact("Козлюк", "Василий", new DateTime(2000, 2, 25),
+                "eqkez0r@mail.ru", new PhoneNumber("79234364565"), "eqkez0r");
+            expectedProject.Contacts.Add(contact);
+            contact = new Contact("Семенов", "Алексей", new DateTime(2000, 3, 20),
+                "sem@mail.ru", new PhoneNumber("79534364565"), "sem");
+            expectedProject.Contacts.Add(contact);
+
+            // Act
+            var actualProject = ProjectManager.LoadFromFile("TestData\\", "BrokenProjectFile.json");
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.AreEqual(expected.Surname, actual.Surname, "returned incorrected data(surname)");
-                Assert.AreEqual(expected.Name, actual.Name, "returned incorrected data(name)");
-                Assert.AreEqual(expected.PhoneNumber.Number, actual.PhoneNumber.Number, "returned incorrected data(phone number)");
-                Assert.AreEqual(expected.BirthDay, expected.BirthDay, "returned incorrected data(birthday)");
-                Assert.AreEqual(expected.Email, actual.Email, "returned incorrected data(email)");
-                Assert.AreEqual(expected.VkID, actual.VkID, "returned incorrected data(vkid)");
-            });
+            Assert.AreNotEqual(expectedProject.Contacts.Count, actualProject.Contacts.Count);
+        }
+
+        [TestCase(Description = "", TestName = "Save correctly test")]
+        public void ProjectManager_SaveCorrectData_FileSaveCorrected()
+        {
+            // Setup
+            var savingProject = new Project();
+            var contact = new Contact("Козлюк", "Василий", new DateTime(2000, 2, 25),
+                "eqkez0r@mail.ru", new PhoneNumber("79234364565"), "eqkez0r");
+            savingProject.Contacts.Add(contact);
+            contact = new Contact("Семенов", "Алексей", new DateTime(2000, 3, 20),
+                "sem@mail.ru", new PhoneNumber("79534364565"), "sem");
+            savingProject.Contacts.Add(contact);
+
+            // Act
+            ProjectManager.SaveToFile(savingProject,"TestData\\", "SavingProjectFile.json");
+
+            // Assert
+            var expected = File.ReadAllText("TestData\\CorrectedProjectFile.json");
+            var actual = File.ReadAllText("TestData\\SavingProjectFile.json");
+            Assert.AreEqual(expected, actual);
         }
     }
 }

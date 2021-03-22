@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -13,21 +14,43 @@ namespace ContactAppUI
 {
     public partial class ContactForm : Form
     {
-        private Contact _currentContact;
-        
-        public ContactForm()
+        /// <summary>
+        /// 
+        /// </summary>
+        Color _errorColor = Color.DarkOrange;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Color _rightColor = Color.White;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ContactForm(Contact contact)
         {
             InitializeComponent();
+
+            if (contact == null)
+            {
+                Contact = new Contact();
+            }
+            else
+            {
+                Contact = contact;
+                NameTextBox.Text = contact.Name;
+                SurnameTextBox.Text = contact.Surname;
+                PhoneMaskedTextBox.Text = contact.PhoneNumber.Number.Substring(1, 10);
+                BirthdayTimePicker.Value = contact.BirthDay;
+                EmailTextBox.Text = contact.Email;
+                VkIDTextBox.Text = contact.VkID;
+            }
         }
 
         /// <summary>
         /// Свойства CurrentContact
         /// </summary>
-        public Contact CurrentContact
-        {
-            set { this._currentContact = value; }
-            get { return _currentContact; }
-        }
+        public Contact Contact { set;  get; }
 
         /// <summary>
         /// Метод, описывающий реакцию на нажатие кнопки cancel
@@ -46,13 +69,10 @@ namespace ContactAppUI
         /// <param name="e"></param>
         private void okEditorFormButton_Click(object sender, EventArgs e)
         {
-            if (SurnameTextBox.Text != "" && SurnameTextBox.BackColor != Color.Red
-                && NameTextBox.Text != "" && NameTextBox.BackColor != Color.Red
-                && BirthdayErrorLabel.Text == "" && EmailTextBox.Text != "" && EmailTextBox.BackColor != Color.Red
-                && VkIDTextBox.Text != "" && PhoneMaskedTextBox.Text.Length == 16)
+            if (IsContactEnterCorrected())
             {
                 var correctedNumber = PhoneFilter(PhoneMaskedTextBox.Text);
-                this._currentContact = new Contact(SurnameTextBox.Text, NameTextBox.Text,
+                this.Contact = new Contact(SurnameTextBox.Text, NameTextBox.Text,
                     BirthdayTimePicker.Value, EmailTextBox.Text, new PhoneNumber(correctedNumber), VkIDTextBox.Text);
                 this.DialogResult = DialogResult.OK;
             }
@@ -64,25 +84,20 @@ namespace ContactAppUI
         }
 
         /// <summary>
-        /// Метод загрузки формы
+        /// 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void EditorForm_Load(object sender, EventArgs e)
+        /// <returns></returns>
+        private bool IsContactEnterCorrected()
         {
-            if (_currentContact == null)
-            {
-                _currentContact = new Contact();
-            }
-            else
-            {
-                this.NameTextBox.Text = _currentContact.Name;
-                this.SurnameTextBox.Text = _currentContact.Surname;
-                this.PhoneMaskedTextBox.Text = _currentContact.PhoneNumber.Number.Substring(1,10);
-                this.BirthdayTimePicker.Value = _currentContact.BirthDay;
-                this.EmailTextBox.Text = _currentContact.Email;
-                this.VkIDTextBox.Text = _currentContact.VkID;
-            }
+            return SurnameTextBox.Text != ""
+                   && SurnameTextBox.BackColor != _errorColor
+                   && NameTextBox.Text != ""
+                   && NameTextBox.BackColor != _errorColor
+                   && BirthdayErrorLabel.Text == ""
+                   && EmailTextBox.Text != ""
+                   && EmailTextBox.BackColor != _errorColor
+                   && VkIDTextBox.Text != ""
+                   && PhoneMaskedTextBox.Text.Length == 16;
         }
 
         /// <summary>
@@ -92,15 +107,15 @@ namespace ContactAppUI
         /// <param name="e"></param>
         private void surnameTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (Regex.IsMatch(SurnameTextBox.Text, "[^a-zа-яA-ZА-Я]"))
+            try
             {
-                SurnameTextBox.BackColor = Color.Red;
+                Contact.Surname = SurnameTextBox.Text;
+                SurnameTextBox.BackColor = _rightColor;
             }
-            else
+            catch (Exception exception)
             {
-                SurnameTextBox.BackColor = Color.White;
+                SurnameTextBox.BackColor = _errorColor;
             }
-
         }
 
         /// <summary>
@@ -110,13 +125,14 @@ namespace ContactAppUI
         /// <param name="e"></param>
         private void nameTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (Regex.IsMatch(NameTextBox.Text, "[^a-zа-яA-ZА-Я]"))
+            try
             {
-                NameTextBox.BackColor = Color.Red;
+                Contact.Name = NameTextBox.Text;
+                NameTextBox.BackColor = _rightColor;
             }
-            else
+            catch (Exception exception)
             {
-                NameTextBox.BackColor = Color.White;
+                NameTextBox.BackColor = _errorColor;
             }
         }
 
@@ -127,13 +143,14 @@ namespace ContactAppUI
         /// <param name="e"></param>
         private void birthdayTimePicker_ValueChanged(object sender, EventArgs e)
         {
-            if (BirthdayTimePicker.Value.Year < 1900 || BirthdayTimePicker.Value >= DateTime.Today)
+            try
             {
-                BirthdayErrorLabel.Text = "Error: Incorrected Date";
-            }
-            else
-            {
+                Contact.BirthDay = BirthdayTimePicker.Value;
                 BirthdayErrorLabel.Text = "";
+            }
+            catch (Exception exception)
+            {
+                BirthdayErrorLabel.Text = exception.Message;
             }
         }
 
@@ -144,13 +161,14 @@ namespace ContactAppUI
         /// <param name="e"></param>
         private void emailTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (!Regex.IsMatch(EmailTextBox.Text, "[@]"))
+            try
             {
-                EmailTextBox.BackColor = Color.Red;
+                Contact.Email = EmailTextBox.Text;
+                EmailTextBox.BackColor = _rightColor;
             }
-            else
+            catch (Exception exception)
             {
-                EmailTextBox.BackColor = Color.White;
+                EmailTextBox.BackColor = _errorColor;
             }
         }
 
@@ -161,11 +179,14 @@ namespace ContactAppUI
         /// <returns></returns>
         private string PhoneFilter(string phoneNumber)
         {
-            var count = phoneNumber.Length;
-            string correctedPhoneNumber = phoneNumber.Substring(1, 1) 
-                                          + phoneNumber.Substring(3, 3) 
-                                          + phoneNumber.Substring(8, 3) 
-                                          + phoneNumber.Substring(12, 4);
+            var countryCodeIndex = 1;
+            var operatorCodeIndex = 3;
+            var firstPartNumberIndex = 8;
+            var secondPartNumberIndex = 12;
+            string correctedPhoneNumber = phoneNumber.Substring(countryCodeIndex, 1) 
+                                          + phoneNumber.Substring(operatorCodeIndex, 3) 
+                                          + phoneNumber.Substring(firstPartNumberIndex, 3) 
+                                          + phoneNumber.Substring(secondPartNumberIndex, 4);
             return correctedPhoneNumber;
         }
 

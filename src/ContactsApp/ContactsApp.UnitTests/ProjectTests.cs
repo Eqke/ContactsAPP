@@ -10,31 +10,23 @@ namespace ContactsApp.UnitTests
     public class ProjectTests
     {
         [TestCase(TestName = "Positive project get test")]
-        public void ProjectGetText()
+        public void Project_Get_Positive()
         {
             // Setup
-            var expected = new Contact("Сидоров", "Иван", new DateTime(1998, 3, 15), "sid.i@ya.ru",
+            var expectedContact = new Contact("Сидоров", "Иван", new DateTime(1998, 3, 15), "sid.i@ya.ru",
                 new PhoneNumber("79996542354"), "sid0rov");
             var project = new Project();
-            project.Contacts.Add(expected);
+            project.Contacts.Add(expectedContact);
 
             // Act
-            var actual = project.Contacts[0];
+            var actualContact = project.Contacts[0];
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.AreEqual(expected.Surname, actual.Surname, "returned incorrected data(surname)");
-                Assert.AreEqual(expected.Name,actual.Name,"returned incorrected data(name)");
-                Assert.AreEqual(expected.PhoneNumber.Number,actual.PhoneNumber.Number,"returned incorrected data(phone number)");
-                Assert.AreEqual(expected.BirthDay,expected.BirthDay,"returned incorrected data(birthday)");
-                Assert.AreEqual(expected.Email,actual.Email,"returned incorrected data(email)");
-                Assert.AreEqual(expected.VkID,actual.VkID,"returned incorrected data(vkid)");
-            });
+            Assert.AreEqual(expectedContact, actualContact);
         }
 
         [TestCase(TestName = "Positive sort test")]
-        public void PositiveSortTest()
+        public void Project_SortList_Positive()
         {
             // Setup
             var secondContact = new Contact("Некифор", "Петр", new DateTime(1993, 1, 20),
@@ -61,7 +53,7 @@ namespace ContactsApp.UnitTests
         }
 
         [TestCase(TestName = "Negative sort test")]
-        public void NegativeSortTest()
+        public void Project_SortList_Negative()
         {
             // Setup
             var secondContact = new Contact("Некифор", "Петр", new DateTime(1993, 1, 20),
@@ -88,7 +80,7 @@ namespace ContactsApp.UnitTests
         }
 
         [TestCase(TestName = "Positive detect Birthday guys test")]
-        public void PositiveDetectBirthdayTest()
+        public void Project_TodayBirthdayList_WithBirthday()
         {
             // Setup
             var today = DateTime.Today;
@@ -102,11 +94,11 @@ namespace ContactsApp.UnitTests
             var birthDayList = project.TodayBirthdayList(today);
 
             // Assert
-            Assert.AreEqual(contact.Surname, birthDayList[0].Surname, "method work incorrected");
+            Assert.AreEqual(contact.Surname, birthDayList[0], "method work incorrected");
         }
 
         [TestCase(TestName = "Negative detect Birthday guys test")]
-        public void NegativeDetectBirthdayTest()
+        public void Project_TodayBirthdayList_WithoutBirthday()
         {
             // Setup
             var today = DateTime.Today;

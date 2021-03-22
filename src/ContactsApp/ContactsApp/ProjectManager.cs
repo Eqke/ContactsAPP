@@ -15,12 +15,23 @@ namespace ContactsApp
     public class ProjectManager
     {
         /// <summary>
+        /// Переменная, хранящая имя файла с данными о контактах
+        /// </summary>
+        private static string _defaultFileName = "Сontacts.json";
+
+        /// <summary>
+        /// Возвращает имя файла, хранящего данные о контактах
+        /// </summary>
+        public static string DefaultFileName => _defaultFileName;
+
+        /// <summary>
         /// Переменная, хранящая дефолтный путь к данным о контактах
         /// </summary>
-        private static string _defaultPathToData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) 
-                                                   + "\\ContactsApp\\data\\contacts.txt";
+        private static string _defaultPathToData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
+                                                   + "\\ContactsApp\\data\\";
+
         /// <summary>
-        /// Метод, возвращающий 
+        /// Метод, возвращающий дефолтный путь к данным
         /// </summary>
         public static string DefaultPathToData => _defaultPathToData;
         
@@ -28,16 +39,16 @@ namespace ContactsApp
         /// Метод для десериализации
         /// </summary>
         /// <returns></returns>
-        public static Project LoadFromFile(string path)
+        public static Project LoadFromFile(string path, string filename)
         {
             JsonSerializer serializer = new JsonSerializer()
             {
                 Formatting = Formatting.Indented,
                 TypeNameHandling = TypeNameHandling.All
             };
-            if (File.Exists(path))
+            if (File.Exists(path + filename))
             {
-                using (StreamReader sr = new StreamReader(path))
+                using (StreamReader sr = new StreamReader(path + filename))
                 {
                     using (JsonReader reader = new JsonTextReader(sr))
                     {
@@ -55,14 +66,18 @@ namespace ContactsApp
         /// Метод для сериализации
         /// </summary>
         /// <param name="data"></param>
-        public static void SaveToFile(Project data, string path)
+        public static void SaveToFile(Project data, string path, string filename)
         {
             JsonSerializer serializer = new JsonSerializer()
             {
                 Formatting = Formatting.Indented,
                 TypeNameHandling = TypeNameHandling.All
             };
-            using (StreamWriter sw = new StreamWriter(path))
+            if (!File.Exists(path + filename))
+            {
+                Directory.CreateDirectory(path);
+            }
+            using (StreamWriter sw = new StreamWriter(path + filename))
             {
                 using (JsonWriter writer = new JsonTextWriter(sw))
                 {

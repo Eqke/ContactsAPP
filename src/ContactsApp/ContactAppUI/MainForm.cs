@@ -17,11 +17,53 @@ namespace ContactAppUI
     
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private Project _project;
-        private string _currentPath = "";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private List <KeyValuePair<int, Contact>> _viewedContactList;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void RefreshViewedList()
+        {
+            contactsListBox.Items.Clear();
+            if (_viewedContactList.Count == 0) return;
+            for (int i = 0; i < _viewedContactList.Count; i++)
+            {
+                contactsListBox.Items.Add(_viewedContactList[i].Value.Surname);
+            }
+            CheckBirthdayToday(DateTime.Today);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void InitialViewedList()
+        {
+            _viewedContactList.Clear();
+            for (int i = 0; i < _project.Contacts.Count; i++)
+            {
+                _viewedContactList.Add(new KeyValuePair<int,Contact>(i,_project.Contacts[i]));
+            }
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
+            _project = ProjectManager.LoadFromFile(ProjectManager.DefaultPathToData, ProjectManager.DefaultFileName);
+            _project.SortList();
+            _viewedContactList = new List<KeyValuePair<int, Contact>>();
+            InitialViewedList();
+            RefreshViewedList();
         }
 
         /// <summary>
@@ -31,42 +73,7 @@ namespace ContactAppUI
         /// <param name="e"></param>
         private void addContactButton_Click(object sender, EventArgs e)
         {
-            ContactForm editForm = new ContactForm();
-            var dialogResult = editForm.ShowDialog(this);
-            if (dialogResult == DialogResult.OK)
-            {
-                _project.Contacts.Add(editForm.CurrentContact);
-                _project.SortList();
-                this.contactsListBox.Items.Clear();
-                foreach (var contact in _project.Contacts)
-                {
-                    this.contactsListBox.Items.Add(contact.Surname);
-                }
-                editForm.Close();
-                ProjectManager.SaveToFile(_project,_currentPath);
-                CheckBirthdayToday(DateTime.Today);
-            }
-            else if (dialogResult == DialogResult.Cancel)
-            {
-                editForm.Close();
-            }
-        }
-
-        /// <summary>
-        /// Метод, описывающий загрузку данной формы
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            _project = ProjectManager.LoadFromFile(ProjectManager.DefaultPathToData);
-            _currentPath = ProjectManager.DefaultPathToData;
-            _project.SortList();
-            contactsListBox.Items.Clear();
-            foreach (var contact in _project.Contacts)
-            {
-                this.contactsListBox.Items.Add(contact.Surname);
-            }
+            AddContact();
         }
 
         /// <summary>
@@ -76,35 +83,7 @@ namespace ContactAppUI
         /// <param name="e"></param>
         private void editContactButton_Click(object sender, EventArgs e)
         {
-            if (contactsListBox.Items.Count != 0)
-            {
-                ContactForm editForm = new ContactForm();
-                var selectedIndex = contactsListBox.SelectedIndex;
-                editForm.CurrentContact = _project.Contacts[selectedIndex];
-                var dialogResult = editForm.ShowDialog(this);
-                if (dialogResult == DialogResult.OK)
-                {
-                    _project.Contacts[contactsListBox.SelectedIndex] = editForm.CurrentContact;
-                    _project.SortList();
-                    this.contactsListBox.Items.Clear();
-                    foreach (var contact in _project.Contacts)
-                    {
-                        this.contactsListBox.Items.Add(contact.Surname);
-                    }
-
-                    editForm.Close();
-                    CheckBirthdayToday(DateTime.Today);
-                }
-                else if (dialogResult == DialogResult.Cancel)
-                {
-                    editForm.Close();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Error: you haven't contacts for edit", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            EditContact();
         }
 
         /// <summary>
@@ -114,71 +93,7 @@ namespace ContactAppUI
         /// <param name="e"></param>
         private void deleteContactButton_Click(object sender, EventArgs e)
         {
-            if (contactsListBox.Items.Count != 0)
-            {
-                var selectedIndex = contactsListBox.SelectedIndex;
-            DialogResult result = MessageBox.Show("Are you wanna delete " +
-                            _project.Contacts[selectedIndex].Surname + "?", "Verification",
-                MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-            if (result == DialogResult.OK)
-            {
-                _project.Contacts.RemoveAt(selectedIndex);
-                _project.SortList();
-                this.contactsListBox.Items.Clear();
-                foreach (var contact in _project.Contacts)
-                {
-                    this.contactsListBox.Items.Add(contact.Surname);
-                }
-                CheckBirthdayToday(DateTime.Today);
-                ProjectManager.SaveToFile(_project,_currentPath);
-            }
-            RefreshContactBoxs();
-            }
-            else
-            {
-                MessageBox.Show("Error: you haven't contacts for delete", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        /// <summary>
-        /// Метод, описывающий рекакцию на клик по кнопке save, находящийся в menustrip
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveDialog = new SaveFileDialog();
-            saveDialog.Filter = "only txt files (*.txt) | *.txt";
-            if (saveDialog.ShowDialog() == DialogResult.OK)
-            {
-                string path = saveDialog.FileName;
-                ProjectManager.SaveToFile(_project, path);
-            }
-            CheckBirthdayToday(DateTime.Today);
-        }
-
-        /// <summary>
-        /// Метод, описывающий рекакцию на клик по кнопке load, находящийся в menustrip
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openDialog = new OpenFileDialog();
-            openDialog.Filter = "only txt files (*.txt) | *.txt";
-            if (openDialog.ShowDialog() == DialogResult.OK)
-            {
-                _currentPath = openDialog.FileName;
-                contactsListBox.Items.Clear();
-                _project = ProjectManager.LoadFromFile(_currentPath);
-                _project.SortList();
-                foreach (var contact in _project.Contacts)
-                {
-                    contactsListBox.Items.Add(contact.Surname);
-                }
-                CheckBirthdayToday(DateTime.Today);
-            }
+            DeleteContact();
         }
 
         /// <summary>
@@ -198,7 +113,7 @@ namespace ContactAppUI
         /// <param name="e"></param>
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AboutForm aboutForm = new AboutForm();
+            var aboutForm = new AboutForm();
             aboutForm.Show(this);
         }
 
@@ -209,7 +124,7 @@ namespace ContactAppUI
         /// <param name="e"></param>
         private void contactsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RefreshContactBoxs();
+            RefreshContactBoxes();
         }
 
         /// <summary>
@@ -219,25 +134,9 @@ namespace ContactAppUI
         /// <param name="e"></param>
         private void findTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (findTextBox.Text == "")
-            {
-                contactsListBox.Items.Clear();
-                foreach (var contact in _project.Contacts)
-                {
-                    contactsListBox.Items.Add(contact.Surname);
-                }
-            }
-            else
-            {
-                contactsListBox.Items.Clear();
-                foreach (var contact in _project.Contacts)
-                {
-                    if (Regex.IsMatch(contact.Surname.ToLower(), findTextBox.Text.ToLower()))
-                    {
-                        contactsListBox.Items.Add(contact.Surname);
-                    }
-                }
-            }
+            contactsListBox.Items.Clear();
+            _viewedContactList = _project.FindContacts(findTextBox.Text);
+            RefreshViewedList();
         }
 
         /// <summary>
@@ -247,27 +146,9 @@ namespace ContactAppUI
         /// <param name="e"></param>
         private void contactsListBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Delete && contactsListBox.Items.Count != 0)
+            if (e.KeyCode == Keys.Delete)
             {
-                var selectedIndex = contactsListBox.SelectedIndex;
-                if (selectedIndex == -1)
-                {
-                    selectedIndex = _project.Contacts.Count - 1;
-                }
-                DialogResult result = MessageBox.Show("Are you wanna delete " +
-                                                      _project.Contacts[selectedIndex].Surname + "?", "Verification",
-                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                if (result == DialogResult.OK)
-                {
-                    _project.Contacts.RemoveAt(selectedIndex);
-                    _project.SortList();
-                    this.contactsListBox.Items.Clear();
-                    foreach (var contact in _project.Contacts)
-                    {
-                        this.contactsListBox.Items.Add(contact.Surname);
-                    }
-                }
-                CheckBirthdayToday(DateTime.Today);
+                DeleteContact();
             }
         }
 
@@ -277,23 +158,17 @@ namespace ContactAppUI
         /// <param name="today"></param>
         private void CheckBirthdayToday(DateTime today)
         {
-            List<Contact> birthdayContacts = _project.TodayBirthdayList(today);
-            if (birthdayContacts.Count != 0)
+            var birthdayContactsSurname = _project.TodayBirthdayList(today);
+            if (birthdayContactsSurname.Count != 0)
             {
-                TodayBirthdayLabel.Text = "Сегодня день рождения у: ";
-                string brithdayLabelText = "";
-                foreach (var contact in birthdayContacts)
-                {
-                    brithdayLabelText += contact.Surname + ", ";
-                }
-
-                TodayPictureBox.Visible = true;
-                TodayBirthdayLabel.Text += brithdayLabelText.Substring(0,brithdayLabelText.Length-2) + ".";
+                BirthdayPanel.Visible = true;
+                TodayBirthdayLabel.Text = "today is these people's birthday: ";
+                var birthdayLabelText = String.Join(", ", birthdayContactsSurname);
+                TodayBirthdayLabel.Text += birthdayLabelText;
             }
             else
             {
-                TodayBirthdayLabel.Text = "";
-                TodayPictureBox.Visible = false;
+                BirthdayPanel.Visible = false;
             }
         }
 
@@ -304,22 +179,19 @@ namespace ContactAppUI
         /// <param name="e"></param>
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            ProjectManager.SaveToFile(_project,_currentPath);
+            ProjectManager.SaveToFile(_project,ProjectManager.DefaultPathToData, ProjectManager.DefaultFileName);
         }
 
         /// <summary>
         /// Метод, отвечающий за обновление информации в полях формы
         /// </summary>
-        private void RefreshContactBoxs()
+        private void RefreshContactBoxes()
         {
+            if (contactsListBox.SelectedIndex == -1) return;
+            var selectedIndex = _viewedContactList[contactsListBox.SelectedIndex].Key;
+
             if (contactsListBox.Items.Count > 0)
             {
-                var selectedIndex = contactsListBox.SelectedIndex;
-                if (selectedIndex == -1)
-                {
-                    selectedIndex = _project.Contacts.Count - 1;
-                }
-
                 nameTextBox.Text = _project.Contacts[selectedIndex].Name;
                 surnameTextBox.Text = _project.Contacts[selectedIndex].Surname;
                 phoneMaskedTextBox.Text = _project.Contacts[selectedIndex].PhoneNumber.Number.Substring(1, 10);
@@ -336,6 +208,84 @@ namespace ContactAppUI
                 emailTextBox.Text = "";
                 vkIDTextBox.Text = "";
             }
+        }
+
+        /// <summary>
+        /// Метод дообавления контакта
+        /// </summary>
+        private void AddContact()
+        {
+            var form = new ContactForm(null);
+            var dialogResult = form.ShowDialog(this);
+            if (dialogResult == DialogResult.OK)
+            {
+                _project.Contacts.Add(form.Contact);
+                _project.SortList();
+                InitialViewedList();
+                RefreshViewedList();
+                ProjectManager.SaveToFile(_project, ProjectManager.DefaultPathToData, ProjectManager.DefaultFileName);
+            }
+        }
+
+        /// <summary>
+        /// Метод редактирования контакта
+        /// </summary>
+        private void EditContact()
+        {
+            if (_project.Contacts.Count == 0) return;
+            if (contactsListBox.SelectedIndex == -1) return;
+            var selectedIndex = _viewedContactList[contactsListBox.SelectedIndex].Key;
+            ContactForm form = new ContactForm(_project.Contacts[selectedIndex]);
+            var dialogResult = form.ShowDialog(this);
+            if (dialogResult == DialogResult.OK)
+            {
+                _project.Contacts[selectedIndex] = form.Contact;
+                _project.SortList();
+                InitialViewedList();
+                RefreshViewedList();
+                RefreshContactBoxes();
+            }
+        }
+
+        /// <summary>
+        /// Метод удаления контакта
+        /// </summary>
+        private void DeleteContact()
+        {
+            if (contactsListBox.Items.Count == 0) return;
+            if (contactsListBox.SelectedIndex == -1) return;
+            var selectedIndex = _viewedContactList[contactsListBox.SelectedIndex].Key;
+            DialogResult result = MessageBox.Show("Are you wanna delete " + _project.Contacts[selectedIndex].Surname + "?",
+                "Verification", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.OK)
+            {
+                _project.Contacts.RemoveAt(selectedIndex);
+                _viewedContactList.RemoveAt(selectedIndex);
+                InitialViewedList();
+                RefreshViewedList();
+                ProjectManager.SaveToFile(_project, ProjectManager.DefaultPathToData, ProjectManager.DefaultFileName);
+                RefreshContactBoxes();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void addToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddContact();
+        }
+
+        /// <summary>
+        /// Реакция на клик элемента menuitem
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EditContact();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace ContactsApp.UnitTests
             Description = "Negative phone number set test", TestName = "Incorrected phone number have more then 11 symbols")]
         [TestCase("79kk4364565", "must throw exception, if phone have incorrected symbols",
             Description = "Negative phone number set test", TestName = "incorrected phone number with incorrected symbols")]
-        public void PhoneNumberSetTest(string incorretedNumber, string message)
+        public void PhoneNumber_Set_Incorrected(string incorretedNumber, string message)
         {
             Assert.Throws<ArgumentException>(() =>
             {
@@ -23,7 +23,7 @@ namespace ContactsApp.UnitTests
         }
 
         [TestCase(TestName = "Positive number get test")]
-        public void PhoneNUmberGetTest()
+        public void PhoneNumber_Set_Corrected()
         {
             // Setup
             var expected = "79052234567";
@@ -33,7 +33,7 @@ namespace ContactsApp.UnitTests
             var actual = phoneNumber.Number;
 
             // Assert
-            Assert.AreEqual(expected,actual,"get returned incorrected data");
+            Assert.AreEqual(expected,actual);
         }
     }
 }
