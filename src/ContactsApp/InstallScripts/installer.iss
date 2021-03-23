@@ -27,3 +27,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "Release\ContactsApp.dll"; DestDir: "{app}"
 Source: "Release\Newtonsoft.Json.dll"; DestDir: "{app}"
 Source: "Release\ContactAppUI.exe"; DestDir: "{app}"
+
+[Icons]
+Name: "{commonprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
+Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon;
