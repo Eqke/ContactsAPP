@@ -231,7 +231,11 @@ namespace ContactsApp
             return _surname.CompareTo(other._surname);
         }
 
-
+        /// <summary>
+        /// Метод, необходимый для реализации интерфейса IEquatable
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public bool Equals(Contact other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -244,6 +248,11 @@ namespace ContactsApp
                    && _vkid == other._vkid;
         }
 
+        /// <summary>
+        /// Метод, необходимый для реализации интерфейса IEquatable
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -252,6 +261,10 @@ namespace ContactsApp
             return Equals((Contact) obj);
         }
 
+        /// <summary>
+        /// Метод, необходимый для реализации интерфейса IEquatable
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             unchecked

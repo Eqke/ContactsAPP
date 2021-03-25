@@ -54,7 +54,11 @@ namespace ContactsApp
             this.Number = number;
         }
 
-
+        /// <summary>
+        /// Метод, необходимый для реализации интерфейса IEquatable
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public bool Equals(PhoneNumber other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -62,6 +66,11 @@ namespace ContactsApp
             return _number == other._number;
         }
 
+        /// <summary>
+        /// Метод, необходимый для реализации интерфейса IEquatable
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -70,6 +79,10 @@ namespace ContactsApp
             return Equals((PhoneNumber) obj);
         }
 
+        /// <summary>
+        /// Метод, необходимый для реализации интерфейса IEquatable
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             return (_number != null ? _number.GetHashCode() : 0);

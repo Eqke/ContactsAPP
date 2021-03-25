@@ -11,7 +11,7 @@ namespace ContactsApp.UnitTests
     public class ProjectManagerTests
     {
         
-        [TestCase(Description = "Positive project manager load test", TestName = "Project manager load test")]
+        [TestCase(Description = "Positive project manager load test", TestName = "Load corrected file")]
         public void ProjectManager_LoadCorrectData_FileLoadCorrected()
         {
             // Setup

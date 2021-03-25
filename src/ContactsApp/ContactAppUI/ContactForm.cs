@@ -10,22 +10,23 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ContactsApp;
+
 namespace ContactAppUI
 {
     public partial class ContactForm : Form
     {
         /// <summary>
-        /// 
+        /// переменная, хранящая цвет ошибку
         /// </summary>
         Color _errorColor = Color.DarkOrange;
 
         /// <summary>
-        /// 
+        /// переменная, хранящая цвет корректного ввода
         /// </summary>
         Color _rightColor = Color.White;
 
         /// <summary>
-        /// 
+        /// Конструктор формы
         /// </summary>
         public ContactForm(Contact contact)
         {
@@ -84,7 +85,7 @@ namespace ContactAppUI
         }
 
         /// <summary>
-        /// 
+        /// Метод, проверяющий корректность данных и заполнены пооля или нет
         /// </summary>
         /// <returns></returns>
         private bool IsContactEnterCorrected()

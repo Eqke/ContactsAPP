@@ -48,6 +48,11 @@ namespace ContactsApp
             return birthdayContactsList;
         }
 
+        /// <summary>
+        /// Метод, реализующий поиск контактов по фамилии
+        /// </summary>
+        /// <param name="searchingSurname">Список людей</param>
+        /// <returns></returns>
         public List<KeyValuePair<int, Contact>> FindContacts(string searchingSurname)
         {
             var findedContactsList = new List<KeyValuePair<int, Contact>>();

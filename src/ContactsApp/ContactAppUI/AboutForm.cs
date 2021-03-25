@@ -12,11 +12,19 @@ namespace ContactAppUI
 {
     public partial class AboutForm : Form
     {
+        /// <summary>
+        /// Конструктор формы
+        /// </summary>
         public AboutForm()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Метод, открывающий ссылку на git 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GitHubLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try

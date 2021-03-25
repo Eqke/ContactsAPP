@@ -73,7 +73,7 @@ namespace ContactsApp
                 Formatting = Formatting.Indented,
                 TypeNameHandling = TypeNameHandling.All
             };
-            if (!File.Exists(path + filename))
+            if (!File.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }

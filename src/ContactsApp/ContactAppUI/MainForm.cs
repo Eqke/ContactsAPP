@@ -18,17 +18,17 @@ namespace ContactAppUI
     public partial class MainForm : Form
     {
         /// <summary>
-        /// 
+        /// Переменная, хранящая проект
         /// </summary>
         private Project _project;
 
         /// <summary>
-        /// 
+        /// Переменная, хранящая коонтакты, отображаемые в contactslistbox
         /// </summary>
         private List <KeyValuePair<int, Contact>> _viewedContactList;
 
         /// <summary>
-        /// 
+        /// Метод, обновляющий информационные поля формы
         /// </summary>
         private void RefreshViewedList()
         {
@@ -42,7 +42,7 @@ namespace ContactAppUI
         }
 
         /// <summary>
-        /// 
+        /// Метод, иницилизирующий список отооборажаемых в contactslistbox
         /// </summary>
         private void InitialViewedList()
         {
@@ -54,7 +54,7 @@ namespace ContactAppUI
         }
         
         /// <summary>
-        /// 
+        /// Конструктоор фоормы
         /// </summary>
         public MainForm()
         {
@@ -269,7 +269,7 @@ namespace ContactAppUI
         }
 
         /// <summary>
-        /// 
+        /// Реакция на клик элемента menuitem
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
