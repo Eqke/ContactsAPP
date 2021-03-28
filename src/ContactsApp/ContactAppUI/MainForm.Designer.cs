@@ -107,9 +107,10 @@ namespace ContactAppUI
             // 
             // editContactButton
             // 
+            this.editContactButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.editContactButton.FlatAppearance.BorderSize = 0;
-            this.editContactButton.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.editContactButton.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.editContactButton.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ControlDark;
+            this.editContactButton.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ControlDark;
             this.editContactButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.editContactButton.Image = global::ContactAppUI.Properties.Resources.edit;
             this.editContactButton.Location = new System.Drawing.Point(33, 3);
@@ -121,9 +122,10 @@ namespace ContactAppUI
             // 
             // deleteContactButton
             // 
+            this.deleteContactButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.deleteContactButton.FlatAppearance.BorderSize = 0;
-            this.deleteContactButton.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.deleteContactButton.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.deleteContactButton.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ControlDark;
+            this.deleteContactButton.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ControlDark;
             this.deleteContactButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.deleteContactButton.Image = global::ContactAppUI.Properties.Resources.delete;
             this.deleteContactButton.Location = new System.Drawing.Point(63, 3);
@@ -138,8 +140,8 @@ namespace ContactAppUI
             this.addContactButton.BackColor = System.Drawing.SystemColors.Control;
             this.addContactButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.addContactButton.FlatAppearance.BorderSize = 0;
-            this.addContactButton.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.addContactButton.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.addContactButton.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ControlDark;
+            this.addContactButton.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ControlDark;
             this.addContactButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addContactButton.ForeColor = System.Drawing.SystemColors.ControlText;
             this.addContactButton.Image = global::ContactAppUI.Properties.Resources.AddContact;
