@@ -287,5 +287,6 @@ namespace ContactAppUI
         {
             EditContact();
         }
+
     }
 }

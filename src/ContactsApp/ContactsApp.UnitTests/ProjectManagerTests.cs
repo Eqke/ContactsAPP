@@ -35,8 +35,7 @@ namespace ContactsApp.UnitTests
             expectedProject.Contacts.Add(contact);
 
             // Act
-            var actualProject = ProjectManager.LoadFromFile(Path
-                , "CorrectedProjectFile.json");
+            var actualProject = ProjectManager.LoadFromFile(Path, "CorrectedProjectFile.json");
             
             // Assert
             Assert.AreEqual(expectedProject.Contacts.Count, actualProject.Contacts.Count);
