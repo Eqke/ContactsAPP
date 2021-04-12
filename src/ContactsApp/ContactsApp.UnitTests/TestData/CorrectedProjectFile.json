@@ -1,5 +1,6 @@
 {
   "$type": "ContactsApp.Project, ContactsApp",
+  "SelectedContact": 0,
   "Contacts": {
     "$type": "System.Collections.Generic.List`1[[ContactsApp.Contact, ContactsApp]], mscorlib",
     "$values": [

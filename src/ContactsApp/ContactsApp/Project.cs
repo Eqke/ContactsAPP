@@ -12,8 +12,15 @@ namespace ContactsApp
     /// </summary>
     public class Project
     {
+        /// <summary>
+        /// Список контактов
+        /// </summary>
         public List<Contact> Contacts { get; set; } = new List<Contact>();
-        
+
+        /// <summary>
+        /// Переменная, хранящая индекс выбранного объекта
+        /// </summary>
+        public int SelectedContact;
 
         /// <summary>
         /// Метод инициализации списка контактов
@@ -56,21 +63,11 @@ namespace ContactsApp
         public List<KeyValuePair<int, Contact>> FindContacts(string searchingSurname)
         {
             var findedContactsList = new List<KeyValuePair<int, Contact>>();
-            if (searchingSurname == "")
+            for (int i = 0; i < Contacts.Count; i++)
             {
-                for (int i = 0; i < Contacts.Count; i++)
+                if (Regex.IsMatch(Contacts[i].Surname.ToLower(), searchingSurname.ToLower()))
                 {
-                    findedContactsList.Add(new KeyValuePair <int, Contact> (i, Contacts[i]));
-                }
-            }
-            else
-            {
-                for (int i = 0; i < Contacts.Count; i++)
-                {
-                    if (Regex.IsMatch(Contacts[i].Surname.ToLower(), searchingSurname.ToLower()))
-                    {
-                        findedContactsList.Add(new KeyValuePair<int, Contact>(i, Contacts[i]));
-                    }
+                    findedContactsList.Add(new KeyValuePair<int, Contact>(i, Contacts[i]));
                 }
             }
             return findedContactsList;

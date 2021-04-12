@@ -28,24 +28,9 @@ namespace ContactAppUI
         /// <summary>
         /// Конструктор формы
         /// </summary>
-        public ContactForm(Contact contact)
+        public ContactForm()
         {
             InitializeComponent();
-
-            if (contact == null)
-            {
-                Contact = new Contact();
-            }
-            else
-            {
-                Contact = contact;
-                NameTextBox.Text = contact.Name;
-                SurnameTextBox.Text = contact.Surname;
-                PhoneMaskedTextBox.Text = contact.PhoneNumber.Number.Substring(1, 10);
-                BirthdayTimePicker.Value = contact.BirthDay;
-                EmailTextBox.Text = contact.Email;
-                VkIDTextBox.Text = contact.VkID;
-            }
         }
 
         /// <summary>
@@ -191,5 +176,23 @@ namespace ContactAppUI
             return correctedPhoneNumber;
         }
 
+        /// <summary>
+        /// Метод, обновляющий поля формы
+        /// </summary>
+        public void InitialField()
+        {
+            if (Contact == null)
+            {
+                Contact = new Contact();
+                return;
+            }
+
+            SurnameTextBox.Text = Contact.Surname;
+            NameTextBox.Text = Contact.Name;
+            EmailTextBox.Text = Contact.Email;
+            VkIDTextBox.Text = Contact.VkID;
+            PhoneMaskedTextBox.Text = Contact.PhoneNumber.Number;
+            BirthdayTimePicker.Value = Contact.BirthDay;
+        }
     }
 }

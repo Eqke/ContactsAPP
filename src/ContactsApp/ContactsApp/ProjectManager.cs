@@ -46,17 +46,25 @@ namespace ContactsApp
                 Formatting = Formatting.Indented,
                 TypeNameHandling = TypeNameHandling.All
             };
-            if (File.Exists(path + filename))
+            try
             {
-                using (StreamReader sr = new StreamReader(path + filename))
+                if (File.Exists(path + filename))
                 {
-                    using (JsonReader reader = new JsonTextReader(sr))
+                    using (StreamReader sr = new StreamReader(path + filename))
                     {
-                        return (Project) serializer.Deserialize<Project>(reader);
+                        using (JsonReader reader = new JsonTextReader(sr))
+                        {
+                            var project = serializer.Deserialize<Project>(reader);
+                            return project ?? new Project();
+                        }
                     }
                 }
+                else
+                {
+                    return new Project();
+                }
             }
-            else
+            catch (Exception exception)
             {
                 return new Project();
             }

@@ -115,7 +115,7 @@ namespace ContactsApp.UnitTests
         }
 
         [TestCase(TestName = "Positive get test email")]
-        public void EmailGetTest()
+        public void Contact_EmailGetTest_PositiveTest()
         {
             // Setup
             var expected = "chipenko.n@mail.ru";
@@ -134,7 +134,7 @@ namespace ContactsApp.UnitTests
         [TestCase("chipenkochipenkochipenkochipenkochipenkochipenko.n@mail.ru", 
             "must throw exception, if email have more then 50 symbols",
             Description = "Negative email set test", TestName = "Email can't be more then 50 symbols")]
-        public void EmailSetTest(string incorrectedEmail, string message)
+        public void Contact_EmailSetTest_NegativeTest(string incorrectedEmail, string message)
         {
             Assert.Throws<ArgumentException>(() =>
             {

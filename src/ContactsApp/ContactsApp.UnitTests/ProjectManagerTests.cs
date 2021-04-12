@@ -48,13 +48,11 @@ namespace ContactsApp.UnitTests
         [TestCase(Description = "", TestName = "Load incorrected file")]
         public void ProjectManager_LoadBrokenData_FileLoadIncorrected()
         {
-            
+            // Setup
+            var project = ProjectManager.LoadFromFile(Path, "BrokenProjectFile.json");
+
             // Assert
-            Assert.Throws<Newtonsoft.Json.JsonReaderException>(() =>
-                {
-                    var actualProject = ProjectManager.LoadFromFile(Path, "BrokenProjectFile.json");
-                }
-                );
+            Assert.AreEqual(project.Contacts.Count, 0);
         }
 
         [TestCase(Description = "", TestName = "Save correctly test")]

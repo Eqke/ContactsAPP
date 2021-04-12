@@ -75,23 +75,11 @@ namespace ContactsApp
             get => _surname;
             set
             {
-                if (value.Length > 50)
+                if (IsCorrectedField(value))
                 {
-                    throw new ArgumentException("Error: incorrected surname. " +
-                                                "Surname length must be have less then 51 symbols.");
+                    value = value.Substring(0, 1).ToUpper() + value.Substring(1).ToLower();
+                    _surname = value;
                 }
-                else if (value == string.Empty)
-                {
-                    throw new ArgumentException("Error: incorrected surname. " +
-                                                "Surname can't be empty string.");
-                }
-                else if (Regex.IsMatch(value, "[^a-zA-Zа-яА-Я]"))
-                {
-                    throw new ArgumentException("Error: incorrected surname. " +
-                                                "Surname have incorrected symbols.");
-                }
-                value = value.Substring(0, 1).ToUpper() + value.Substring(1).ToLower();
-                _surname = value;
             }
         }
 
@@ -103,23 +91,11 @@ namespace ContactsApp
             get => _name;
             set
             {
-                if (value.Length > 50)
+                if (IsCorrectedField(value))
                 {
-                    throw new ArgumentException("Error: incorrected name. " +
-                                                "Name length must be have less then 51 symbols");
+                    value = value.Substring(0, 1).ToUpper() + value.Substring(1).ToLower();
+                    _name = value;
                 }
-                else if (value == string.Empty)
-                {
-                    throw new ArgumentException("Error: incorrected name. " +
-                                                "Name can't be empty string");
-                }
-                else if (Regex.IsMatch(value, "[^a-zA-Zа-яА-Я]"))
-                {
-                    throw new ArgumentException("Error: incorrected surname. " +
-                                                "Surname have incorrected symbols.");
-                }
-                value = value.Substring(0, 1).ToUpper() + value.Substring(1).ToLower();
-                _name = value;
             }
         }
 
@@ -155,7 +131,7 @@ namespace ContactsApp
             {
                 if (value.Length > 50)
                 {
-                    throw new ArgumentException("Error: incorrected name. " +
+                    throw new ArgumentException("Error: incorrected email. " +
                                                 "Email length must be less then 51 symbols");
                 }
                 else if (!Regex.IsMatch(value, "[@]"))
@@ -211,12 +187,6 @@ namespace ContactsApp
         /// </summary>
         public Contact()
         {
-            _surname = null;
-            _name = null;
-            _birthDay = Convert.ToDateTime(null);
-            _phoneNumber = new PhoneNumber("70000000000");
-            _email = "";
-            _vkid = "";
         }
 
         /// <summary>
@@ -277,6 +247,27 @@ namespace ContactsApp
                 hashCode = (hashCode * 397) ^ (_vkid != null ? _vkid.GetHashCode() : 0);
                 return hashCode;
             }
+        }
+
+
+        private bool IsCorrectedField(string value)
+        {
+            if (value.Length > 50)
+            {
+                throw new ArgumentException("Error: incorrected data. " +
+                                            "Name length must be have less then 51 symbols");
+            }
+            else if (value == string.Empty)
+            {
+                throw new ArgumentException("Error: incorrected data. " +
+                                            "Name can't be empty string");
+            }
+            else if (Regex.IsMatch(value, "[^a-zA-Zа-яА-Я]"))
+            {
+                throw new ArgumentException("Error: incorrected data. " + 
+                                            "Surname have incorrected symbols.");
+            }
+            return true;
         }
     }
 }
