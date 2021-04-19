@@ -20,7 +20,7 @@ namespace ContactsApp
         /// <summary>
         /// Переменная, хранящая индекс выбранного объекта
         /// </summary>
-        public int SelectedContact;
+        public int SelectedContact = -1;
 
         /// <summary>
         /// Метод инициализации списка контактов

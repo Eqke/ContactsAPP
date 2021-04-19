@@ -35,9 +35,7 @@ namespace ContactAppUI
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.contactUIPanel = new System.Windows.Forms.Panel();
             this.operationLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.editContactButton = new System.Windows.Forms.Button();
             this.deleteContactButton = new System.Windows.Forms.Button();
-            this.addContactButton = new System.Windows.Forms.Button();
             this.contactsListBox = new System.Windows.Forms.ListBox();
             this.findTextBox = new System.Windows.Forms.TextBox();
             this.findLabel = new System.Windows.Forms.Label();
@@ -64,8 +62,10 @@ namespace ContactAppUI
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BirthdayPanel = new System.Windows.Forms.Panel();
-            this.TodayPictureBox = new System.Windows.Forms.PictureBox();
             this.TodayBirthdayLabel = new System.Windows.Forms.Label();
+            this.TodayPictureBox = new System.Windows.Forms.PictureBox();
+            this.editContactButton = new System.Windows.Forms.Button();
+            this.addContactButton = new System.Windows.Forms.Button();
             this.contactUIPanel.SuspendLayout();
             this.operationLayoutPanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -102,23 +102,8 @@ namespace ContactAppUI
             this.operationLayoutPanel.Name = "operationLayoutPanel";
             this.operationLayoutPanel.RowCount = 1;
             this.operationLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.operationLayoutPanel.Size = new System.Drawing.Size(92, 35);
+            this.operationLayoutPanel.Size = new System.Drawing.Size(93, 35);
             this.operationLayoutPanel.TabIndex = 2;
-            // 
-            // editContactButton
-            // 
-            this.editContactButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.editContactButton.FlatAppearance.BorderSize = 0;
-            this.editContactButton.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ControlDark;
-            this.editContactButton.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ControlDark;
-            this.editContactButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.editContactButton.Image = global::ContactAppUI.Properties.Resources.edit;
-            this.editContactButton.Location = new System.Drawing.Point(33, 3);
-            this.editContactButton.Name = "editContactButton";
-            this.editContactButton.Size = new System.Drawing.Size(24, 24);
-            this.editContactButton.TabIndex = 4;
-            this.editContactButton.UseVisualStyleBackColor = true;
-            this.editContactButton.Click += new System.EventHandler(this.editContactButton_Click);
             // 
             // deleteContactButton
             // 
@@ -128,29 +113,12 @@ namespace ContactAppUI
             this.deleteContactButton.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ControlDark;
             this.deleteContactButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.deleteContactButton.Image = global::ContactAppUI.Properties.Resources.delete;
-            this.deleteContactButton.Location = new System.Drawing.Point(63, 3);
+            this.deleteContactButton.Location = new System.Drawing.Point(65, 3);
             this.deleteContactButton.Name = "deleteContactButton";
             this.deleteContactButton.Size = new System.Drawing.Size(24, 24);
             this.deleteContactButton.TabIndex = 5;
             this.deleteContactButton.UseVisualStyleBackColor = true;
             this.deleteContactButton.Click += new System.EventHandler(this.deleteContactButton_Click);
-            // 
-            // addContactButton
-            // 
-            this.addContactButton.BackColor = System.Drawing.SystemColors.Control;
-            this.addContactButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.addContactButton.FlatAppearance.BorderSize = 0;
-            this.addContactButton.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ControlDark;
-            this.addContactButton.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ControlDark;
-            this.addContactButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addContactButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.addContactButton.Image = global::ContactAppUI.Properties.Resources.AddContact;
-            this.addContactButton.Location = new System.Drawing.Point(3, 3);
-            this.addContactButton.Name = "addContactButton";
-            this.addContactButton.Size = new System.Drawing.Size(24, 24);
-            this.addContactButton.TabIndex = 3;
-            this.addContactButton.UseVisualStyleBackColor = true;
-            this.addContactButton.Click += new System.EventHandler(this.addContactButton_Click);
             // 
             // contactsListBox
             // 
@@ -374,21 +342,21 @@ namespace ContactAppUI
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.addToolStripMenuItem.Text = "Add Contact";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // editContactToolStripMenuItem
             // 
             this.editContactToolStripMenuItem.Name = "editContactToolStripMenuItem";
-            this.editContactToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editContactToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.editContactToolStripMenuItem.Text = "Edit Contact";
             this.editContactToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.deleteToolStripMenuItem.Text = "Delete Contact";
             // 
             // aboutToolStripMenuItem
@@ -418,16 +386,6 @@ namespace ContactAppUI
             this.BirthdayPanel.TabIndex = 5;
             this.BirthdayPanel.Visible = false;
             // 
-            // TodayPictureBox
-            // 
-            this.TodayPictureBox.Image = global::ContactAppUI.Properties.Resources.Happy_Birthday;
-            this.TodayPictureBox.InitialImage = global::ContactAppUI.Properties.Resources.Happy_Birthday;
-            this.TodayPictureBox.Location = new System.Drawing.Point(13, 10);
-            this.TodayPictureBox.Name = "TodayPictureBox";
-            this.TodayPictureBox.Size = new System.Drawing.Size(64, 63);
-            this.TodayPictureBox.TabIndex = 1;
-            this.TodayPictureBox.TabStop = false;
-            // 
             // TodayBirthdayLabel
             // 
             this.TodayBirthdayLabel.AutoSize = true;
@@ -435,6 +393,47 @@ namespace ContactAppUI
             this.TodayBirthdayLabel.Name = "TodayBirthdayLabel";
             this.TodayBirthdayLabel.Size = new System.Drawing.Size(0, 13);
             this.TodayBirthdayLabel.TabIndex = 0;
+            // 
+            // TodayPictureBox
+            // 
+            this.TodayPictureBox.Image = global::ContactAppUI.Properties.Resources.Happy_Birthday;
+            this.TodayPictureBox.Location = new System.Drawing.Point(13, 10);
+            this.TodayPictureBox.Name = "TodayPictureBox";
+            this.TodayPictureBox.Size = new System.Drawing.Size(64, 63);
+            this.TodayPictureBox.TabIndex = 1;
+            this.TodayPictureBox.TabStop = false;
+            // 
+            // editContactButton
+            // 
+            this.editContactButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.editContactButton.FlatAppearance.BorderSize = 0;
+            this.editContactButton.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ControlDark;
+            this.editContactButton.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ControlDark;
+            this.editContactButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.editContactButton.Image = ((System.Drawing.Image)(resources.GetObject("editContactButton.Image")));
+            this.editContactButton.Location = new System.Drawing.Point(34, 3);
+            this.editContactButton.Name = "editContactButton";
+            this.editContactButton.Size = new System.Drawing.Size(24, 24);
+            this.editContactButton.TabIndex = 4;
+            this.editContactButton.UseVisualStyleBackColor = true;
+            this.editContactButton.Click += new System.EventHandler(this.editContactButton_Click);
+            // 
+            // addContactButton
+            // 
+            this.addContactButton.BackColor = System.Drawing.SystemColors.Control;
+            this.addContactButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.addContactButton.FlatAppearance.BorderSize = 0;
+            this.addContactButton.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ControlDark;
+            this.addContactButton.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ControlDark;
+            this.addContactButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addContactButton.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.addContactButton.Image = ((System.Drawing.Image)(resources.GetObject("addContactButton.Image")));
+            this.addContactButton.Location = new System.Drawing.Point(3, 3);
+            this.addContactButton.Name = "addContactButton";
+            this.addContactButton.Size = new System.Drawing.Size(24, 24);
+            this.addContactButton.TabIndex = 3;
+            this.addContactButton.UseVisualStyleBackColor = true;
+            this.addContactButton.Click += new System.EventHandler(this.addContactButton_Click);
             // 
             // MainForm
             // 

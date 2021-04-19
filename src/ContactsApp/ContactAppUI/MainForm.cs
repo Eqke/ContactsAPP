@@ -223,6 +223,8 @@ namespace ContactAppUI
                 InitialViewedList();
                 RefreshViewedList();
                 ProjectManager.SaveToFile(_project, ProjectManager.DefaultPathToData, ProjectManager.DefaultFileName);
+                _project.SelectedContact = _project.Contacts.FindIndex(x => x.Surname.Contains(form.Contact.Surname) && x.Name.Contains(form.Contact.Name));
+                RefreshContactBoxes();
             }
         }
 
@@ -244,8 +246,7 @@ namespace ContactAppUI
                 _project.SortList();
                 InitialViewedList();
                 RefreshViewedList();
-                var contactIndex = _project.Contacts.FindIndex(x => x.Surname.Contains(form.Contact.Surname) && x.Name.Contains(form.Contact.Name));
-                _project.SelectedContact = contactIndex;
+                _project.SelectedContact = _project.Contacts.FindIndex(x => x.Surname.Contains(form.Contact.Surname) && x.Name.Contains(form.Contact.Name));
                 RefreshContactBoxes();
                 findTextBox.Text = "";
             }

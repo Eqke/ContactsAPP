@@ -128,6 +128,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MainFormIcon.ico" />
+    <None Include="Resources\addcontact1.png" />
+    <None Include="Resources\icons8-добавить-группу-пользователей,-мужчины-36.png" />
+    <None Include="Resources\delete1.png" />
+    <None Include="Resources\edit1.png" />
+    <None Include="Resources\add.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
